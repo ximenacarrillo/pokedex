@@ -5,28 +5,38 @@ public class Pokemon {
     private int id;
     private String name;
     private String url;
+    private String image;
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUrl() {
         return url;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getImage(){
+        String[] urlParts = url.split("/");
+        id = Integer.parseInt(urlParts[urlParts.length - 1]);
+        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+        return image;
+        //TODO fix it
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public int getId() {
-        String[] urlParts = url.split("/");
-        int id = Integer.parseInt(urlParts[urlParts.length - 1]);
-        setId(id);
-        return id;
+    public void setImage(String image){
+        this.image = image;
     }
 
     public void setId(int id) {
