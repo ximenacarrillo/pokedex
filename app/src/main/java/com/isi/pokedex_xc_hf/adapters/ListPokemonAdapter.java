@@ -1,8 +1,12 @@
 package com.isi.pokedex_xc_hf.adapters;
 
+
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.isi.pokedex_xc_hf.DetailPokemonActivity;
 import com.isi.pokedex_xc_hf.R;
 import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
@@ -44,7 +49,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
         holder.textView.setText(pokemon.getName());
 
         Glide.with(context)
-                .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.getId() + ".png")
+                .load(pokemon.getImage())
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
@@ -78,9 +83,9 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                             }
                         })
                         .setNegativeButton(context.getString(R.string.view_details), new DialogInterface.OnClickListener() {
-                            @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                                Intent intent = new Intent(context, DetailPokemonActivity.class);
+
                             }
                         });
 

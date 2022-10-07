@@ -10,7 +10,7 @@ public class Pokemon {
     private String image;
     private int height;
     private int weight;
-    private List<Ability> abilities;
+    //private List<Ability> abilities;
 
     public String getName() {
         return name;
