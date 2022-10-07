@@ -2,6 +2,7 @@ package com.isi.pokedex_xc_hf.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.isi.pokedex_xc_hf.R;
+import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 
 import java.util.ArrayList;
@@ -55,13 +57,27 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                 builder
                         .setTitle(pokemon.getName().toUpperCase())
                         .setMessage(R.string.message_alert)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(context.getString(R.string.add_as_favorite), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
+                                try {
+                                    if(!FavoritePokemonController.isFavorite(context,pokemon)) {
+                                        long newFavoriteId = FavoritePokemonController.createFavoritePokemon(context, pokemon);
+                                        if (newFavoriteId > 0) {
+                                            showToast(pokemon.getName() + " was added to your favorites list");
+                                        } else {
+                                            showToast(context.getString(R.string.error_creating_favorite));
+                                        }
+                                    }else{
+                                        showToast(context.getString(R.string.is_already_favorite));
+                                    }
+                                } catch (Exception e){
+                                    showToast(context.getString(R.string.error_creating_favorite));
+                                    Log.println(Log.ERROR,"CREATE",e.getMessage());
+                                }
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(context.getString(R.string.view_details), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -95,5 +111,9 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
             imageView = (ImageView) itemView.findViewById(R.id.photoImageView);
             textView = (TextView) itemView.findViewById(R.id.nameTextView);
         }
+    }
+
+    private void showToast(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

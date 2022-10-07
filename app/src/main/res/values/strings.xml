@@ -2,4 +2,11 @@
     <string name="app_name" translatable="false">Pokedex</string>
     <string name="title_alert">Favorite</string>
     <string name="message_alert">Would you like add to favorites?</string>
+    <string name="view_details">View Details</string>
+    <string name="add_as_favorite">Add as Favorite</string>
+
+<!--    errors-->
+    <string name="error_creating_favorite">Error adding pokemon as favorite. Please try again</string>
+    <string name="is_already_favorite">This pokemon is already in your favorites list.</string>
+
 </resources>
