@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">Pokedex</string>
+    <string name="title_alert">Favorite</string>
+    <string name="message_alert">Would you like add to favorites?</string>
+</resources>
