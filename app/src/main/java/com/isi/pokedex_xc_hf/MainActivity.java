@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://pokeapi.co/api/v2/")
                 .addConverterFactory(GsonConverterFactory.create())

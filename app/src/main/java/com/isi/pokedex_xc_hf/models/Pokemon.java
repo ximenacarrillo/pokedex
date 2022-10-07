@@ -1,11 +1,16 @@
 package com.isi.pokedex_xc_hf.models;
 
+import java.util.List;
+
 public class Pokemon {
 
     private int id;
     private String name;
     private String url;
     private String image;
+    private int height;
+    private int weight;
+    private List<Ability> abilities;
 
     public String getName() {
         return name;
