@@ -23,8 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TODO remove this constant
     private final static String TAG = "Pokedex";
-    private static final int LIMIT = 20;
+    private static final int LIMIT = 21;
 
 
     private Retrofit retrofit;
