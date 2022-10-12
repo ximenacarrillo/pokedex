@@ -4,6 +4,18 @@
     <string name="message_alert">Te gustaria agregarlo a tu lista de favoritos?</string>
     <string name="view_details">Ver Detalles</string>
     <string name="add_as_favorite">Agregar a Favoritos</string>
+    <string name="added_as_favorite"> agregado como favorito.</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+
+    <string name="title_activity_favorites">Favoritos</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="my_favorites">Mis Favoritos</string>
+    <string name="favorites_instructions">Arrasta hacia la izquierda para eliminar, o haz clic sobre el pokemon para ver sus detalles.</string>
+    <string name="search">Buscar</string>
 
     <!--    errors-->
     <string name="error_creating_favorite">Error agregando pokemon como favorito. Por favor intenta de nuevo.</string>

@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
@@ -33,19 +39,33 @@ public class MainActivity extends AppCompatActivity {
     private ListPokemonAdapter listPokemonAdapter;
     private int offset;
     private boolean canCharge;
+    private FloatingActionButton floatingActionButtonFavorites;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
-
+//        floatingActionButtonFavorites = findViewById(R.id.floatingActionButtonFavorites);
         recyclerView = findViewById(R.id.recyclerView);
         listPokemonAdapter = new ListPokemonAdapter(this);
         recyclerView.setAdapter(listPokemonAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
+
+
+//        floatingActionButtonFavorites.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view){
+//                Intent intent = new Intent();
+//                intent = new Intent(MainActivity.this, Favorites.class);
+//                startActivity(intent);
+//            }
+//        });
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -104,5 +124,28 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu ) {
+
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.menuButtonSearch:
+//                intent = new Intent(MainActivity.this, ActivityB.class);
+                break;
+            case R.id.menuButtonFavorites:
+                intent = new Intent(context, Favorites.class);
+                break;
+        }
+
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

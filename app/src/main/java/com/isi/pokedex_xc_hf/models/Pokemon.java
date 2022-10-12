@@ -31,6 +31,12 @@ public class Pokemon {
         return image;
         //TODO fix it
     }
+    public String getImage(int id){
+
+        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+        return image;
+        //TODO fix it
+    }
 
     public void setName(String name) {
         this.name = name;

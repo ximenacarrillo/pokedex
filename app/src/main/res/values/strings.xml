@@ -4,9 +4,22 @@
     <string name="message_alert">Would you like add to favorites?</string>
     <string name="view_details">View Details</string>
     <string name="add_as_favorite">Add as Favorite</string>
+    <string name="added_as_favorite"> added as favorite.</string>
 
-<!--    errors-->
+    <!--    errors-->
     <string name="error_creating_favorite">Error adding pokemon as favorite. Please try again</string>
     <string name="is_already_favorite">This pokemon is already in your favorites list.</string>
+    <string name="title_activity_favorites">Favorites</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="favorites_instructions">Drag to the left to delete, or click to view details.</string>
+    <string name="search">Search</string>
 
 </resources>

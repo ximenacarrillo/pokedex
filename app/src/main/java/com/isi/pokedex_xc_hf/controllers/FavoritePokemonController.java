@@ -23,7 +23,7 @@ public class FavoritePokemonController {
             Pokemon pokemon = new Pokemon();
             pokemon.setId(cursor.getInt(1));
             pokemon.setName(cursor.getString(2));
-            //pokemon.getImage();
+            pokemon.getImage(cursor.getInt(1));
             favoritePokemons.add(pokemon);
         }
 

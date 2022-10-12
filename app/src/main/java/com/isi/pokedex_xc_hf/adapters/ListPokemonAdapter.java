@@ -69,7 +69,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                                     if(!FavoritePokemonController.isFavorite(context,pokemon)) {
                                         long newFavoriteId = FavoritePokemonController.createFavoritePokemon(context, pokemon);
                                         if (newFavoriteId > 0) {
-                                            showToast(pokemon.getName() + " was added to your favorites list");
+                                            showToast(pokemon.getName().toUpperCase() + " "+ context.getString(R.string.added_as_favorite));
                                         } else {
                                             showToast(context.getString(R.string.error_creating_favorite));
                                         }
