@@ -11,9 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
@@ -39,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private ListPokemonAdapter listPokemonAdapter;
     private int offset;
     private boolean canCharge;
-    private FloatingActionButton floatingActionButtonFavorites;
     private Context context;
 
     @Override
@@ -48,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
 
-//        floatingActionButtonFavorites = findViewById(R.id.floatingActionButtonFavorites);
         recyclerView = findViewById(R.id.recyclerView);
         listPokemonAdapter = new ListPokemonAdapter(this);
         recyclerView.setAdapter(listPokemonAdapter);
@@ -56,15 +51,6 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-
-//        floatingActionButtonFavorites.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view){
-//                Intent intent = new Intent();
-//                intent = new Intent(MainActivity.this, Favorites.class);
-//                startActivity(intent);
-//            }
-//        });
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -125,6 +111,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void searchByName(String name){
+
+        ArrayList<Pokemon> listPokemon = listPokemonAdapter.getDataList();
+        listPokemon.removeIf(pokemon -> !pokemon.getName().contains(name));
+        listPokemonAdapter.addPokemonList(listPokemon);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu ) {
@@ -138,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         switch (item.getItemId()){
             case R.id.menuButtonSearch:
-//                intent = new Intent(MainActivity.this, ActivityB.class);
+                //TODO: implement feature
+                //searchByName("as");
                 break;
             case R.id.menuButtonFavorites:
                 intent = new Intent(context, Favorites.class);

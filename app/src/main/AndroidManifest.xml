@@ -18,7 +18,7 @@
         <activity
             android:name=".Favorites"
             android:exported="false"
-            android:label="@string/title_activity_favorites"
+            android:label="@string/my_favorites"
             android:theme="@style/Theme.Pokedex_XC_HF.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"

@@ -1,9 +1,7 @@
 package com.isi.pokedex_xc_hf.adapters;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.isi.pokedex_xc_hf.DetailPokemonActivity;
 import com.isi.pokedex_xc_hf.R;
 import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
@@ -27,15 +23,24 @@ import java.util.ArrayList;
 public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdapter.ViewHolder> {
     private ArrayList<Pokemon> favoritesList;
     private Context context;
+    TextView textViewInstructions;
 
-    public ListFavoritesAdapter(Context context){
+    public ListFavoritesAdapter(Context context, TextView instructions){
         this.context = context;
         this.favoritesList = new ArrayList<>();
+        this.textViewInstructions = instructions;
+        setInstructions();
+    }
+
+    public void setInstructions() {
+        String instructions = favoritesList.size() > 0 ? context.getString(R.string.favorites_instructions) : context.getString(R.string.favorites_empty);
+        this.textViewInstructions.setText(instructions);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(context).inflate(R.layout.favorite_item, parent, false);
+        textViewInstructions = parent.findViewById(R.id.textViewInstructions);
         return new ViewHolder(view);
     }
 
@@ -67,8 +72,11 @@ public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdap
         Pokemon pokemon = favoritesList.get(adapterPosition);
         int rowsDeleted = FavoritePokemonController.deleteFavoritePokemon(context, pokemon);
         if (rowsDeleted == 1 ){
-            showToast(pokemon.getName().toUpperCase() + " deleted from your favorites successfully!" );
+            showToast(pokemon.getName().toUpperCase() + " " + context.getString(R.string.favorite_deleted));
             favoritesList.remove(adapterPosition);
+            textViewInstructions = (TextView) ((Activity) context).findViewById(R.id.textViewInstructions);
+            setInstructions();
+            notifyDataSetChanged();
         }else
         {
             showToast("Unable To Delete");

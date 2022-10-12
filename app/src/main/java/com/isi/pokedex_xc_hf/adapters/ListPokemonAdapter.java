@@ -1,8 +1,5 @@
 package com.isi.pokedex_xc_hf.adapters;
 
-
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
@@ -28,6 +25,8 @@ import com.isi.pokedex_xc_hf.models.Pokemon;
 import java.util.ArrayList;
 
 public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.ViewHolder> {
+
+
 
     private ArrayList<Pokemon> dataList;
     private Context context;
@@ -120,5 +119,8 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
 
     private void showToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+    public ArrayList<Pokemon> getDataList() {
+        return dataList;
     }
 }
