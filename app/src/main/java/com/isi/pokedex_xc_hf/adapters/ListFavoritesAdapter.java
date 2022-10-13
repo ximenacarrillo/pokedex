@@ -47,7 +47,7 @@ public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdap
     @Override
     public void onBindViewHolder(@NonNull ListFavoritesAdapter.ViewHolder holder, int position){
         Pokemon pokemon = favoritesList.get(position);
-        String image = pokemon.getImage(pokemon.getId());
+        String image = pokemon.getImage();
         holder.textView.setText(pokemon.getName());
 
         Glide.with(context)
