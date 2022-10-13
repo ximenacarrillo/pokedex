@@ -2,14 +2,22 @@ package com.isi.pokedex_xc_hf.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+
+import android.os.Bundle;
+
 import android.util.Log;
 import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.content.Intent;
+
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +31,7 @@ import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.ViewHolder> {
 
@@ -84,7 +93,12 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                         .setNegativeButton(context.getString(R.string.view_details), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(context, DetailPokemonActivity.class);
+                                Bundle bundle = new Bundle();
 
+                                bundle.putInt("id", pokemon.getId());
+                                intent.putExtras(bundle);
+
+                                startActivity(context,intent,bundle);
                             }
                         });
 
@@ -100,7 +114,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
         return dataList.size();
     }
 
-    public void addPokemonList(ArrayList<Pokemon> listPokemon) {
+    public void addPokemonList(List<Pokemon> listPokemon) {
         dataList.addAll(listPokemon);
         notifyDataSetChanged();
     }

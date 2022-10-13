@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
+import com.isi.pokedex_xc_hf.pokeapi.ApiClient;
 import com.isi.pokedex_xc_hf.pokeapi.PokeapiServices;
 
 import java.util.ArrayList;
@@ -21,8 +22,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "Pokedex";
     private static final int LIMIT = 21;
 
-
-    private Retrofit retrofit;
     private RecyclerView recyclerView;
     private ListPokemonAdapter listPokemonAdapter;
     private int offset;
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     if (canCharge) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
                             canCharge = false;
-                            offset += 20;
+                            offset += 21;
                             getData();
                         }
                     }
@@ -73,30 +70,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         canCharge = true;
         getData();
+
     }
 
     private void getData(){
-        PokeapiServices services = retrofit.create(PokeapiServices.class);
-        Call<PokemonResponse> pokemonResponseCall = services.getPokemonList(LIMIT,offset);
+        PokeapiServices services = ApiClient.getClient().create(PokeapiServices.class);
+        Call<PokemonResponse> call = services.getPokemonList(LIMIT,offset);
 
-        pokemonResponseCall.enqueue(new Callback<PokemonResponse>() {
+        call.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(@NonNull Call<PokemonResponse> call, Response<PokemonResponse> response) {
                 canCharge = true;
                 if (response.isSuccessful()){
-                    PokemonResponse pokemonResponse = response.body();
-                    ArrayList<Pokemon> listPokemon = pokemonResponse.getResults();
-
-                    listPokemonAdapter.addPokemonList(listPokemon);
-
+                    ArrayList<Pokemon> pokeList = response.body().getResults();
+                    listPokemonAdapter.addPokemonList(pokeList);
                 } else {
                     //TODO handle error
                     Log.e(TAG, " onResponse: " + response.errorBody());
@@ -104,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+            public void onFailure(Call<PokemonResponse> call, @NonNull Throwable t) {
                 canCharge = true;
                 //TODO handle error
                 Log.e(TAG, " onFailure: " + t.getMessage());
