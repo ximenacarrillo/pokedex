@@ -7,6 +7,7 @@
     <string name="my_favorites">Mis Favoritos</string>
     <string name="message_alert">Te gustaría agregarlo a tu lista de favoritos?</string>
     <string name="view_details">Ver Detalles</string>
+    <string name="name_label">Nombre del Pokemon</string>
     <!--    Favorites View-->
     <string name="add_as_favorite">Agregar a Favoritos</string>
     <string name="added_as_favorite">agregado como favorito.</string>

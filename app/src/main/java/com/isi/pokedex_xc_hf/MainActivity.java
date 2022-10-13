@@ -5,12 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private int offset;
     private boolean canCharge;
     private Context context;
+    private EditText editTextFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
-
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -75,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void getData(){
         PokeapiServices services = ApiClient.getClient().create(PokeapiServices.class);
         Call<PokemonResponse> call = services.getPokemonList(LIMIT,offset);
@@ -83,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<PokemonResponse> call, Response<PokemonResponse> response) {
                 canCharge = true;
+
                 if (response.isSuccessful()){
                     ArrayList<Pokemon> pokeList = response.body().getResults();
                     listPokemonAdapter.addPokemonList(pokeList);
@@ -100,35 +109,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void searchByName(String name){
 
-        ArrayList<Pokemon> listPokemon = listPokemonAdapter.getDataList();
-        listPokemon.removeIf(pokemon -> !pokemon.getName().contains(name));
-        listPokemonAdapter.addPokemonList(listPokemon);
+    private void searchByName() {
+
+
+
+
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu( Menu menu ) {
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
-        Intent intent = new Intent();
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
             case R.id.menuButtonSearch:
                 //TODO: implement feature
-                //searchByName("as");
+
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View view = layoutInflater.inflate(R.layout.search_pokemon, null);
+
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setTitle("Search Pokemon")
+                        .setView(view)
+                        .setPositiveButton("Search", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                editTextFilter = ((AlertDialog) dialogInterface).findViewById(R.id.editTextPokemonName);
+                                String text = editTextFilter != null ? editTextFilter.getText().toString() : "";
+                                Intent intent = new Intent(context, SearchResultActivity.class);
+                                intent.putExtra("filter", text);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .create();
+                dialog.show();
+
+
                 break;
             case R.id.menuButtonFavorites:
-                intent = new Intent(context, Favorites.class);
+                Intent intent = new Intent(context, Favorites.class);
+                startActivity(intent);
                 break;
         }
 
-        startActivity(intent);
+
+
         return super.onOptionsItemSelected(item);
     }
 }
