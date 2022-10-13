@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    Main activity View-->
     <string name="title_alert">Favorito</string>
-    <string name="message_alert">Te gustaria agregarlo a tu lista de favoritos?</string>
+    <string name="search">Buscar</string>
+    <string name="my_favorites">Mis Favoritos</string>
+    <string name="message_alert">Te gustaría agregarlo a tu lista de favoritos?</string>
+    <string name="view_details">Ver Detalles</string>
+    <!--    Favorites View-->
+    <string name="add_as_favorite">Agregar a Favoritos</string>
+    <string name="added_as_favorite">agregado como favorito.</string>
+    <string name="favorite_deleted">eliminado de tu lista de favoritos.</string>
+    <string name="favorites_instructions">Arrasta hacia la izquierda para eliminar, o haz clic sobre el pokemon para ver sus detalles.</string>
+    <string name="favorites_empty">Ups! Tu lista de favoritos está vacia.</string>
+
+    <!--    errors-->
+    <string name="error_creating_favorite">Error agregando pokemon como favorito. Por favor intenta de nuevo.</string>
+    <string name="is_already_favorite">Este pokemon ya existe en tu lista de favoritos.</string>
 </resources>

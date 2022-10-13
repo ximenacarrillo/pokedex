@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">Pokedex</string>
+<!--    Main activity View-->
     <string name="title_alert">Favorite</string>
+    <string name="search">Search</string>
+    <string name="my_favorites">My Favorites</string>
     <string name="message_alert">Would you like add to favorites?</string>
+    <string name="view_details">View Details</string>
+<!--    Favorites View-->
+    <string name="add_as_favorite">Add as Favorite</string>
+    <string name="added_as_favorite">added as favorite.</string>
+    <string name="favorite_deleted">deleted from favorites.</string>
+    <string name="favorites_instructions">Drag to the left to delete, or click to view details.</string>
+    <string name="favorites_empty">Ups! Your favorites list is empty.</string>
+
+    <!--    errors-->
+    <string name="error_creating_favorite">Error adding pokemon as favorite. Please try again</string>
+    <string name="is_already_favorite">This pokemon is already in your favorites list.</string>
 </resources>
