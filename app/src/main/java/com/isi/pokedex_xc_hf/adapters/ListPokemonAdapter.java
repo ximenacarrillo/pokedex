@@ -96,4 +96,16 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
             textView = (TextView) itemView.findViewById(R.id.nameTextView);
         }
     }
+    private void showToast(String message){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setDataList(ArrayList<Pokemon> dataList) {
+        this.dataList = dataList;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Pokemon> getDataList() {
+        return dataList;
+    }
 }
