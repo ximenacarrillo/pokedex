@@ -110,13 +110,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void searchByName() {
-
-
-
-
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -143,9 +136,13 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 editTextFilter = ((AlertDialog) dialogInterface).findViewById(R.id.editTextPokemonName);
                                 String text = editTextFilter != null ? editTextFilter.getText().toString() : "";
-                                Intent intent = new Intent(context, SearchResultActivity.class);
-                                intent.putExtra("filter", text);
-                                startActivity(intent);
+                                if (!text.isEmpty()) {
+                                    Intent intent = new Intent(context, SearchResultActivity.class);
+                                    intent.putExtra("filter", text);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(context, "empty", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         })
                         .setNegativeButton("Cancel", null)

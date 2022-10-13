@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,16 +31,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchResultActivity extends AppCompatActivity {
 
     private final static String TAG = "Pokedex";
+    private final static int LIMIT = 1154;
+    private final static int OFFSET = 0;
     private String filterText = "";
-    private boolean canCharge;
     private ListPokemonAdapter listPokemonAdapter;
-    private Retrofit retrofit;
-    private int offset;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-
+        context = this;
         Bundle getData = getIntent().getExtras();
         if (getData != null) {
             String data = getData.getString("filter");
@@ -53,54 +54,23 @@ public class SearchResultActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://pokeapi.co/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    int visibleItemCount = gridLayoutManager.getChildCount();
-                    int totalItemCount = gridLayoutManager.getItemCount();
-                    int pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
-
-                    if (canCharge) {
-                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                            canCharge = false;
-                            offset += 20;
-                            getData();
-                        }
-                    }
-                }
-            }
-        });
-
-        canCharge = true;
-        getData();
-    }
-    private void getData(){
         PokeapiServices services = ApiClient.getClient().create(PokeapiServices.class);
-        Call<PokemonResponse> call = services.getPokemonList(1154,offset);
+        Call<PokemonResponse> call = services.getPokemonList(LIMIT,OFFSET);
 
         call.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(@NonNull Call<PokemonResponse> call, Response<PokemonResponse> response) {
-                canCharge = true;
+
 
                 if (response.isSuccessful()){
                     ArrayList<Pokemon> pokeList = response.body().getResults();
 
                     pokeList.removeIf(pokemon -> !pokemon.getName().contains(filterText));
-                    if (pokeList.size() > 0) {
-                        listPokemonAdapter.setDataList(pokeList);
-                    } else {
-                        listPokemonAdapter.setDataList(pokeList);
-                        Toast.makeText(getApplicationContext(), "No results", Toast.LENGTH_SHORT);
+                    if (pokeList.size() == 0 ||pokeList.size() == LIMIT  ) {
+                        setContentView(R.layout.empty);
                     }
+                    listPokemonAdapter.setDataList(pokeList);
                 } else {
                     //TODO handle error
                     Log.e(TAG, " onResponse: " + response.errorBody());
@@ -109,7 +79,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PokemonResponse> call, @NonNull Throwable t) {
-                canCharge = true;
                 //TODO handle error
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }

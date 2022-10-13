@@ -2,6 +2,8 @@ package com.isi.pokedex_xc_hf.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.isi.pokedex_xc_hf.DetailPokemonActivity;
 import com.isi.pokedex_xc_hf.R;
 import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
@@ -47,7 +50,7 @@ public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdap
     @Override
     public void onBindViewHolder(@NonNull ListFavoritesAdapter.ViewHolder holder, int position){
         Pokemon pokemon = favoritesList.get(position);
-        String image = pokemon.getImage(pokemon.getId());
+        String image = pokemon.getImage();
         holder.textView.setText(pokemon.getName());
 
         Glide.with(context)
@@ -55,7 +58,18 @@ public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdap
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailPokemonActivity.class);
+                Bundle bundle = new Bundle();
 
+                bundle.putInt("id", pokemon.getId());
+                intent.putExtras(bundle);
+
+                context.startActivity(intent);
+            }
+        });
 
     }
     @Override

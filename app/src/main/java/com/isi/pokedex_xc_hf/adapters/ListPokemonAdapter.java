@@ -2,22 +2,15 @@ package com.isi.pokedex_xc_hf.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-
-import android.os.Bundle;
-
-import android.util.Log;
 import android.content.Intent;
-
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import android.content.Intent;
-
 import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,15 +20,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.isi.pokedex_xc_hf.DetailPokemonActivity;
 import com.isi.pokedex_xc_hf.R;
-import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 import com.isi.pokedex_xc_hf.models.Pokemon;
+import com.isi.pokedex_xc_hf.controllers.FavoritePokemonController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.ViewHolder> {
-
-
 
     private ArrayList<Pokemon> dataList;
     private Context context;
@@ -91,6 +81,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                             }
                         })
                         .setNegativeButton(context.getString(R.string.view_details), new DialogInterface.OnClickListener() {
+                            @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(context, DetailPokemonActivity.class);
                                 Bundle bundle = new Bundle();
@@ -98,7 +89,8 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                                 bundle.putInt("id", pokemon.getId());
                                 intent.putExtras(bundle);
 
-                                //startActivity(context,intent,bundle);
+                                context.startActivity(intent);
+
                             }
                         });
 
@@ -114,7 +106,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
         return dataList.size();
     }
 
-    public void addPokemonList(List<Pokemon> listPokemon) {
+    public void addPokemonList(ArrayList<Pokemon> listPokemon) {
         dataList.addAll(listPokemon);
         notifyDataSetChanged();
     }
@@ -130,7 +122,6 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
             textView = (TextView) itemView.findViewById(R.id.nameTextView);
         }
     }
-
     private void showToast(String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
