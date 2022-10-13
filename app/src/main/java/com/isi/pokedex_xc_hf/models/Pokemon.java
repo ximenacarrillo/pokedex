@@ -18,8 +18,10 @@ public class Pokemon {
     private int height;
     @SerializedName("weight")
     private int weight;
+
     @SerializedName("abilities")
     private List<Ability> abilities;
+
 
 
     public String getName() {
@@ -41,6 +43,12 @@ public class Pokemon {
         }
         image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
         return image;
+    }
+    public String getImage(int id){
+
+        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+        return image;
+        //TODO fix it
     }
 
     public void setName(String name) {

@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
@@ -30,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private ListPokemonAdapter listPokemonAdapter;
     private int offset;
     private boolean canCharge;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        context = this;
 
         recyclerView = findViewById(R.id.recyclerView);
         listPokemonAdapter = new ListPokemonAdapter(this);
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(gridLayoutManager);
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -93,5 +99,36 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
+    }
+    private void searchByName(String name){
+
+        ArrayList<Pokemon> listPokemon = listPokemonAdapter.getDataList();
+        listPokemon.removeIf(pokemon -> !pokemon.getName().contains(name));
+        listPokemonAdapter.addPokemonList(listPokemon);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu ) {
+
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+        Intent intent = new Intent();
+        switch (item.getItemId()){
+            case R.id.menuButtonSearch:
+                //TODO: implement feature
+                //searchByName("as");
+                break;
+            case R.id.menuButtonFavorites:
+                intent = new Intent(context, Favorites.class);
+                break;
+        }
+
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }
