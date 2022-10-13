@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
                                 editTextFilter = ((AlertDialog) dialogInterface).findViewById(R.id.editTextPokemonName);
                                 String text = editTextFilter != null ? editTextFilter.getText().toString() : "";
                                 Intent intent = new Intent(context, SearchResultActivity.class);
