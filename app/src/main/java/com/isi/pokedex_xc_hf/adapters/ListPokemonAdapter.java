@@ -98,7 +98,7 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
                                 bundle.putInt("id", pokemon.getId());
                                 intent.putExtras(bundle);
 
-                                startActivity(context,intent,bundle);
+                                //startActivity(context,intent,bundle);
                             }
                         });
 

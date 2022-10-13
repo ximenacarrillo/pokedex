@@ -14,6 +14,9 @@
     <string name="favorites_instructions">Drag to the left to delete, or click to view details.</string>
     <string name="favorites_empty">Ups! Your favorites list is empty.</string>
 
+    <!--    Search result-->
+    <string name="search_result_title">Search Result</string>
+
     <!--    errors-->
     <string name="error_creating_favorite">Error adding pokemon as favorite. Please try again</string>
     <string name="is_already_favorite">This pokemon is already in your favorites list.</string>

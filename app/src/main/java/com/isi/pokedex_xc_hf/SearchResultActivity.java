@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.models.PokemonResponse;
+import com.isi.pokedex_xc_hf.pokeapi.ApiClient;
 import com.isi.pokedex_xc_hf.pokeapi.PokeapiServices;
 
 import java.util.ArrayList;
@@ -82,25 +83,24 @@ public class SearchResultActivity extends AppCompatActivity {
         getData();
     }
     private void getData(){
-        PokeapiServices services = retrofit.create(PokeapiServices.class);
-        Call<PokemonResponse> pokemonResponseCall = services.getPokemonList(1154, 1154);
+        PokeapiServices services = ApiClient.getClient().create(PokeapiServices.class);
+        Call<PokemonResponse> call = services.getPokemonList(1154,offset);
 
-        pokemonResponseCall.enqueue(new Callback<PokemonResponse>() {
+        call.enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(@NonNull Call<PokemonResponse> call, Response<PokemonResponse> response) {
+                canCharge = true;
 
-                if (response.isSuccessful()) {
+                if (response.isSuccessful()){
+                    ArrayList<Pokemon> pokeList = response.body().getResults();
 
-                    PokemonResponse pokemonResponse = response.body();
-                    ArrayList<Pokemon> listPokemon = pokemonResponse.getResults();
-
-                    listPokemon.removeIf(pokemon -> !pokemon.getName().contains(filterText));
-                    if (listPokemon.size() > 0) {
-                        listPokemonAdapter.setDataList(listPokemon);
+                    pokeList.removeIf(pokemon -> !pokemon.getName().contains(filterText));
+                    if (pokeList.size() > 0) {
+                        listPokemonAdapter.setDataList(pokeList);
                     } else {
+                        listPokemonAdapter.setDataList(pokeList);
                         Toast.makeText(getApplicationContext(), "No results", Toast.LENGTH_SHORT);
                     }
-
                 } else {
                     //TODO handle error
                     Log.e(TAG, " onResponse: " + response.errorBody());
@@ -108,11 +108,12 @@ public class SearchResultActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+            public void onFailure(Call<PokemonResponse> call, @NonNull Throwable t) {
                 canCharge = true;
                 //TODO handle error
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
+
     }
 }
