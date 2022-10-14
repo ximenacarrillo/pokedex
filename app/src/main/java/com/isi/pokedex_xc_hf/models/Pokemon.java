@@ -37,11 +37,11 @@ public class Pokemon {
     }
 
     public String getImage(){
-        if (id == 0 ) {
+        if (id == 0 && !getUrl().equals(null) ) {
             String[] urlParts = url.split("/");
             id = Integer.parseInt(urlParts[urlParts.length - 1]);
         }
-        image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
+        setImage("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png");
         return image;
     }
 
@@ -77,6 +77,10 @@ public class Pokemon {
         this.weight = weight;
     }
 
+    public String getWeightInKg(){
+        return (getWeight() / 10.0) + " Kg";
+    }
+
     public List<Ability> getAbilities() {
         return abilities;
     }
@@ -85,19 +89,16 @@ public class Pokemon {
         this.abilities = abilities;
     }
 
-    public String getHeightInCentimeters(){
-        return (height * 10.0) + " cm";
-    }
 
     public String getHeightInMeters(){
-        return (height / 10.0) + " m";
+        return (getHeight() / 10.0) + " m";
     }
 
     public String getAbilitiesString() {
         String toReturn = "";
 
         for (Ability ability: abilities) {
-            toReturn += ability.getAbility().getName().toUpperCase() + "\n";
+            toReturn += ability.getAbility().toString();
         }
 
         return toReturn;

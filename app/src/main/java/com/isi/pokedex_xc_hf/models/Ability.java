@@ -31,4 +31,5 @@ public class Ability {
     public void setSlot(int slot) {
         this.slot = slot;
     }
+
 }
