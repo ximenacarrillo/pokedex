@@ -32,7 +32,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO remove this constant
     private final static String TAG = "Pokedex";
     private static final int LIMIT = 21;
 
@@ -96,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<Pokemon> pokeList = response.body().getResults();
                     listPokemonAdapter.addPokemonList(pokeList);
                 } else {
-                    //TODO handle error
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PokemonResponse> call, @NonNull Throwable t) {
                 canCharge = true;
-                //TODO handle error
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });
@@ -123,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menuButtonSearch:
-                //TODO: implement feature
 
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View view = layoutInflater.inflate(R.layout.search_pokemon, null);

@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPokemonActivity extends AppCompatActivity {
-    //TODO remove this constant
+
     private final static String TAG = "Detail";
 
 
@@ -28,6 +28,8 @@ public class DetailPokemonActivity extends AppCompatActivity {
     TextView weightDetail;
     TextView heightDetail;
     TextView abilitiesDetail;
+    TextView typeDetail;
+    TextView movesDetail;
     int id;
     Context context;
 
@@ -42,6 +44,9 @@ public class DetailPokemonActivity extends AppCompatActivity {
         weightDetail = findViewById(R.id.weightDetail);
         heightDetail = findViewById(R.id.heightDetail);
         abilitiesDetail = findViewById(R.id.abilitiesDetail);
+        typeDetail = findViewById(R.id.typeDetail);
+        movesDetail = findViewById(R.id.movesDetail);
+
 
         Bundle getData = getIntent().getExtras();
         id = getData.getInt("id");
@@ -62,6 +67,8 @@ public class DetailPokemonActivity extends AppCompatActivity {
                     weightDetail.setText(pokemon.getWeightInKg());
                     heightDetail.setText(pokemon.getHeightInMeters());
                     abilitiesDetail.setText(pokemon.getAbilitiesString());
+                    typeDetail.setText(pokemon.getTypesToString());
+                    movesDetail.setText(pokemon.getMovesToString());
                     Glide.with(context)
                             .load(pokemon.getImage())
                             .centerCrop()

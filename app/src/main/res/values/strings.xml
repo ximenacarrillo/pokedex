@@ -18,6 +18,8 @@
     <string name="weight_title">Weight:</string>
     <string name="height_title">Height:</string>
     <string name="abilities_title">Abilities:</string>
+    <string name="type_title">Type:</string>
+    <string name="moves_title">Moves:</string>
 
     <!--    Search result-->
     <string name="search_result_title">Search Result</string>

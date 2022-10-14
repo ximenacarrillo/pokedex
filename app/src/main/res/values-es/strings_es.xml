@@ -19,6 +19,9 @@
     <string name="weight_title">Peso:</string>
     <string name="height_title">Altura:</string>
     <string name="abilities_title">Habilidades:</string>
+    <string name="type_title">Tipo:</string>
+    <string name="moves_title">Movimientos:</string>
+
 
     <!--    Search result-->
     <string name="search_result_title">Resultado de la busqueda</string>

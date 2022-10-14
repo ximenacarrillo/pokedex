@@ -3,6 +3,7 @@ package com.isi.pokedex_xc_hf.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Locale;
 
 
 public class Pokemon {
@@ -21,6 +22,10 @@ public class Pokemon {
 
     @SerializedName("abilities")
     private List<Ability> abilities;
+    @SerializedName("types")
+    private List<Type> types;
+    @SerializedName("moves")
+    private  List<Move> moves;
 
 
 
@@ -77,6 +82,14 @@ public class Pokemon {
         this.weight = weight;
     }
 
+    public List<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<Type> types) {
+        this.types = types;
+    }
+
     public String getWeightInKg(){
         return (getWeight() / 10.0) + " Kg";
     }
@@ -102,5 +115,25 @@ public class Pokemon {
         }
 
         return toReturn;
+    }
+
+    public String getTypesToString(){
+        String toReturn = "";
+
+        for (Type type: types) {
+            toReturn += "-" + type.getType().getName() + "\n";
+        }
+
+        return toReturn.toUpperCase();
+    }
+
+    public String getMovesToString(){
+        String toReturn = "";
+
+        for (Move move: moves) {
+            toReturn += "-" + move.getMoveName().getName() + "\n";
+        }
+
+        return toReturn.toUpperCase();
     }
 }
