@@ -14,6 +14,13 @@
     <string name="favorites_instructions">Drag to the left to delete, or click to view details.</string>
     <string name="favorites_empty">Ups! Your favorites list is empty.</string>
 
+    <!--    Detail View-->
+    <string name="weight_title">Weight:</string>
+    <string name="height_title">Height:</string>
+    <string name="abilities_title">Abilities:</string>
+    <string name="type_title">Type:</string>
+    <string name="moves_title">Moves:</string>
+
     <!--    Search result-->
     <string name="search_result_title">Search Result</string>
 
@@ -28,4 +35,5 @@
     <string name="is_already_favorite">This pokemon is already in your favorites list.</string>
     <string name="search_result_error">Please enter a Pokemon name to filter.</string>
     <string name="pokemon_not_found">Ups! There is not Pokemons with that name</string>
+
 </resources>

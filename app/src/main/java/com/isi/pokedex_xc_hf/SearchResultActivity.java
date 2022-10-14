@@ -65,14 +65,12 @@ public class SearchResultActivity extends AppCompatActivity {
                     }
                     listPokemonAdapter.setDataList(pokeList);
                 } else {
-                    //TODO handle error
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
 
             @Override
             public void onFailure(Call<PokemonResponse> call, @NonNull Throwable t) {
-                //TODO handle error
                 Log.e(TAG, " onFailure: " + t.getMessage());
             }
         });

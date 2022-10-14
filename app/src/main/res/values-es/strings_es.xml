@@ -15,6 +15,14 @@
     <string name="favorites_instructions">Arrasta hacia la izquierda para eliminar, o haz clic sobre el pokemon para ver sus detalles.</string>
     <string name="favorites_empty">Ups! Tu lista de favoritos está vacia.</string>
 
+    <!--    Detail View-->
+    <string name="weight_title">Peso:</string>
+    <string name="height_title">Altura:</string>
+    <string name="abilities_title">Habilidades:</string>
+    <string name="type_title">Tipo:</string>
+    <string name="moves_title">Movimientos:</string>
+
+
     <!--    Search result-->
     <string name="search_result_title">Resultado de la búsqueda</string>
 
@@ -29,4 +37,5 @@
     <string name="is_already_favorite">Este pokemon ya existe en tu lista de favoritos.</string>
     <string name="search_result_error">Porfavor ingrese un nombre de Pokemon a buscar</string>
     <string name="pokemon_not_found">Ups! No hay Pokemons con ese nombre.</string>
+
 </resources>

@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.isi.pokedex_xc_hf.models.Pokemon;
 import com.isi.pokedex_xc_hf.pokeapi.ApiClient;
 import com.isi.pokedex_xc_hf.pokeapi.PokeapiServices;
@@ -16,22 +19,36 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPokemonActivity extends AppCompatActivity {
-    //TODO remove this constant
+
     private final static String TAG = "Detail";
 
 
-    TextView textView;
+    TextView titleDetail;
+    ImageView pokemonImage;
+    TextView weightDetail;
+    TextView heightDetail;
+    TextView abilitiesDetail;
+    TextView typeDetail;
+    TextView movesDetail;
     int id;
     Context context;
-    Pokemon pokemon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pokemon);
 
+
+        titleDetail = findViewById(R.id.titleDetail);
+        pokemonImage = findViewById(R.id.pokemonImage);
+        weightDetail = findViewById(R.id.weightDetail);
+        heightDetail = findViewById(R.id.heightDetail);
+        abilitiesDetail = findViewById(R.id.abilitiesDetail);
+        typeDetail = findViewById(R.id.typeDetail);
+        movesDetail = findViewById(R.id.movesDetail);
+
+
         Bundle getData = getIntent().getExtras();
-        textView = findViewById(R.id.idTextViews);
         id = getData.getInt("id");
         context = this;
 
@@ -46,7 +63,17 @@ public class DetailPokemonActivity extends AppCompatActivity {
 
                     Pokemon pokemon = response.body();
 
-                    textView.setText(pokemon.getAbilitiesString());
+                    titleDetail.setText(pokemon.getName().toUpperCase());
+                    weightDetail.setText(pokemon.getWeightInKg());
+                    heightDetail.setText(pokemon.getHeightInMeters());
+                    abilitiesDetail.setText(pokemon.getAbilitiesString());
+                    typeDetail.setText(pokemon.getTypesToString());
+                    movesDetail.setText(pokemon.getMovesToString());
+                    Glide.with(context)
+                            .load(pokemon.getImage())
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(pokemonImage);
                 } else {
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
