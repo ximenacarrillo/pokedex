@@ -17,7 +17,15 @@
     <!--    Search result-->
     <string name="search_result_title">Search Result</string>
 
+    <!--    Search Pokemon -->
+    <string name="search_pokemon_title">Search Pokemon</string>
+    <string name="search_label">Search</string>
+    <string name="cancel_label">Cancel</string>
+
     <!--    errors-->
     <string name="error_creating_favorite">Error adding pokemon as favorite. Please try again</string>
+    <string name="error_deleting_favorite">Error deleting pokemon from favorites. Please try again</string>
     <string name="is_already_favorite">This pokemon is already in your favorites list.</string>
+    <string name="search_result_error">Please enter a Pokemon name to filter.</string>
+    <string name="pokemon_not_found">Ups! There is not Pokemons with that name</string>
 </resources>

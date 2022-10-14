@@ -5,14 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Toast;
 
 import com.isi.pokedex_xc_hf.adapters.ListPokemonAdapter;
 import com.isi.pokedex_xc_hf.models.Pokemon;
@@ -25,8 +20,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -68,7 +61,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
                     pokeList.removeIf(pokemon -> !pokemon.getName().contains(filterText));
                     if (pokeList.size() == 0 ||pokeList.size() == LIMIT  ) {
-                        setContentView(R.layout.empty);
+                        setContentView(R.layout.pokemon_not_found);
                     }
                     listPokemonAdapter.setDataList(pokeList);
                 } else {

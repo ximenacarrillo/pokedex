@@ -93,7 +93,7 @@ public class ListFavoritesAdapter extends RecyclerView.Adapter<ListFavoritesAdap
             notifyDataSetChanged();
         }else
         {
-            showToast("Unable To Delete");
+            showToast(context.getString(R.string.error_deleting_favorite));
         }
         this.notifyItemRemoved(adapterPosition);
     }

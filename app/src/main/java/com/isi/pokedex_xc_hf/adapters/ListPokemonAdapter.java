@@ -131,7 +131,4 @@ public class ListPokemonAdapter extends RecyclerView.Adapter<ListPokemonAdapter.
         notifyDataSetChanged();
     }
 
-    public ArrayList<Pokemon> getDataList() {
-        return dataList;
-    }
 }

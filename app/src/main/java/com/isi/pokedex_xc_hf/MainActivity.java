@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 View view = layoutInflater.inflate(R.layout.search_pokemon, null);
 
                 AlertDialog dialog = new AlertDialog.Builder(context)
-                        .setTitle("Search Pokemon")
+                        .setTitle(getString(R.string.search_pokemon_title))
                         .setView(view)
-                        .setPositiveButton("Search", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.search_label), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 editTextFilter = ((AlertDialog) dialogInterface).findViewById(R.id.editTextPokemonName);
@@ -141,11 +141,11 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("filter", text);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(context, "empty", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, getString(R.string.search_result_error), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(getString(R.string.cancel_label), null)
                         .create();
                 dialog.show();
 
